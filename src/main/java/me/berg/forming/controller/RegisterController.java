@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Api(tags = "注册管理")
+@Slf4j
 @RestController
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
-@Slf4j
 public class RegisterController {
 
     private final UserService userService;
@@ -55,7 +55,7 @@ public class RegisterController {
             userService.save(form.toUser(passwordEncoder));
             return Result.success(null, "注册成功!");
         } catch (UsernameAlreadyExistsException e) {
-            return Result.failed(ResultCode.USER_ACCOUNT_ALREADY_EXIST);
+            return Result.failed(ResultCode.USER_ACCOUNT_ALREADY_EXIST, "用户已存在");
         }
     }
 }

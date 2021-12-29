@@ -9,6 +9,8 @@ import me.berg.forming.mapper.UserMapper;
 import me.berg.forming.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 
 /**
  * 用户表服务实现类
@@ -31,6 +33,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
         return this.updateById(userEntity);
     }
 
+    @Override
+    public Boolean updateLoginTime(String userId, LocalDateTime now) {
+        UserEntity user = new UserEntity();
+        user.setUserId(userId);
+        user.setLastLoginTime(now);
+        return this.updateById(user);
+    }
 }
 
 

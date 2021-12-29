@@ -1,5 +1,7 @@
 package me.berg.forming.component;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import me.berg.forming.entity.UserAuthority;
 import me.berg.forming.entity.UserEntity;
 import me.berg.forming.service.UserAuthorityService;
@@ -9,20 +11,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+@Slf4j
 @Service
-public class SpringUserService implements UserDetailsService {
+@RequiredArgsConstructor
+public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserService userService;
     private final UserAuthorityService authorityService;
-
-    public SpringUserService(UserService userService, UserAuthorityService authorityService) {
-        this.userService = userService;
-        this.authorityService = authorityService;
-    }
 
     /**
      * 返回用户实体。设置权限
@@ -34,7 +34,11 @@ public class SpringUserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
         // TODO 自己调用数据库，对username进行查询，看看在数据库中是否存在, 将数据库中的username、password赋值给detailsService返回
-        UserEntity user = userService.getById(userId);
+        UserEntity user = new UserEntity();
+        if (userService.updateLoginTime(userId, LocalDateTime.now())) {
+            log.info("User {} Login@{}", userId, LocalDateTime.now());
+        } else return user;
+        user = userService.getById(userId);
         List<String> roles = new ArrayList<>();
         HashMap<String, Object> map = new HashMap<>();
         map.put("user_id", userId);

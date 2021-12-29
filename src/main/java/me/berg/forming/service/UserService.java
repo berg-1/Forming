@@ -3,6 +3,8 @@ package me.berg.forming.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import me.berg.forming.entity.UserEntity;
 
+import java.time.LocalDateTime;
+
 /**
  * 用户(AcUser)表服务接口
  *
@@ -14,4 +16,6 @@ public interface UserService extends IService<UserEntity> {
     UserEntity getUserById(String username);
 
     Boolean updatePassword(String userId, String password);
+
+    Boolean updateLoginTime(String userId, LocalDateTime now);
 }

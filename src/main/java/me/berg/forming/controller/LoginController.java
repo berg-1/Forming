@@ -2,17 +2,12 @@ package me.berg.forming.controller;
 
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
-import me.berg.forming.entity.UserEntity;
 import me.berg.forming.service.UserService;
 import me.berg.forming.util.Result;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
 
 @Api(tags = "登录控制")
 @RestController
@@ -29,18 +24,7 @@ public class LoginController {
     })
     @PostMapping("/login")
     public Result<Object> login(@RequestParam @ApiParam(name = "username", value = "用户ID", required = true) String username,
-                                @RequestParam @ApiParam(name = "password", value = "用户密码", required = true) String password,
-                                HttpServletRequest req) {
-        try {
-            req.login(username, password);
-            UserEntity userEntity = new UserEntity();
-            userEntity.setLastLoginTime(LocalDateTime.now());
-            userEntity.setUserId(username);
-            userService.updateById(userEntity);
-            return Result.success();
-        } catch (ServletException e) {
-            e.printStackTrace();
-            return Result.failed();
-        }
+                                @RequestParam @ApiParam(name = "password", value = "用户密码", required = true) String password) {
+        return Result.success();
     }
 }

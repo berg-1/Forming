@@ -72,6 +72,11 @@ public class Result<T> {
         return restResult(null, code, null);
     }
 
+    public static <T> Result<T> failed(ResultCode code, String msg) {
+        return restResult(null, code, msg);
+    }
+
+
     public static <T> Result<T> failed(int code, String msg) {
         return restResult(null, ResultCode.COMMON_FAIL, msg);
     }

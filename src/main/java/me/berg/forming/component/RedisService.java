@@ -4,6 +4,7 @@ import io.lettuce.core.RedisClient;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.sync.RedisCommands;
 import io.lettuce.core.support.ConnectionPoolSupport;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.berg.forming.service.SyncCommandCallback;
 import org.apache.commons.pool2.impl.GenericObjectPool;
@@ -19,6 +20,7 @@ import java.util.Map;
  */
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class RedisService {
 
     final RedisClient redisClient;
@@ -29,10 +31,6 @@ public class RedisService {
      * 连接池在@PostConstruct方法中初始化，在@PreDestroy方法中关闭。
      */
     GenericObjectPool<StatefulRedisConnection<String, String>> redisConnectionPool;
-
-    public RedisService(RedisClient redisClient) {
-        this.redisClient = redisClient;
-    }
 
     @PostConstruct
     public void init() {

@@ -1,7 +1,9 @@
 package me.berg.forming.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import me.berg.forming.component.CustomPasswordEncoder;
+import me.berg.forming.util.Result;
 import me.berg.forming.util.ResultCode;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -19,21 +21,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
 
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
     private final ObjectMapper objectMapper;
     private final CustomPasswordEncoder myPasswordEncoder;
-
-    public SecurityConfig(UserDetailsService userDetailsService, ObjectMapper objectMapper, CustomPasswordEncoder myPasswordEncoder) {
-        this.userDetailsService = userDetailsService;
-        this.objectMapper = objectMapper;
-        this.myPasswordEncoder = myPasswordEncoder;
-    }
 
     /**
      * 描述: 注入AuthenticationManager管理器
@@ -61,10 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     response.setContentType("application/json;charset=utf-8");
                     response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                     PrintWriter out = response.getWriter();
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("code", ResultCode.USER_NOT_LOGIN);
-                    map.put("message", "用户未登录!");
-                    out.write(objectMapper.writeValueAsString(map));
+                    out.write(objectMapper.writeValueAsString(Result.failed(ResultCode.USER_NOT_LOGIN, "用户未登录!")));
                     out.flush();
                     out.close();
                 })
@@ -84,30 +76,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     response.setContentType("application/json;charset=utf-8");
                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                     PrintWriter out = response.getWriter();
-                    Map<String, Object> map = new HashMap<>();
+                    Result<Object> result;
                     if (ex instanceof UsernameNotFoundException || ex instanceof BadCredentialsException) {
-                        map.put("code", ResultCode.USER_CREDENTIALS_ERROR);
-                        map.put("message", "用户名或密码错误");
+                        result = Result.failed(ResultCode.USER_CREDENTIALS_ERROR, "用户名或密码错误");
                     } else if (ex instanceof DisabledException) {
-                        map.put("code", ResultCode.USER_ACCOUNT_LOCKED);
-                        map.put("message", "账户被禁用");
+                        result = Result.failed(ResultCode.USER_ACCOUNT_LOCKED, "账户被禁用");
                     } else {
-                        map.put("code", ResultCode.COMMON_FAIL);
-                        map.put("message", "登录失败!");
+                        result = Result.failed(ResultCode.COMMON_FAIL, "登录失败!");
                     }
-                    out.write(objectMapper.writeValueAsString(map));
+                    out.write(objectMapper.writeValueAsString(result));
                     out.flush();
                     out.close();
                 })
                 //登录成功，返回json
                 .successHandler((request, response, authentication) -> {
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("code", ResultCode.SUCCESS);
-                    map.put("message", "登录成功");
-                    map.put("data", authentication);
                     response.setContentType("application/json;charset=utf-8");
                     PrintWriter out = response.getWriter();
-                    out.write(objectMapper.writeValueAsString(map));
+                    out.write(objectMapper.writeValueAsString(Result.success(authentication, "登录成功")));
                     out.flush();
                     out.close();
                 })
@@ -118,10 +103,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     response.setContentType("application/json;charset=utf-8");
                     response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                     PrintWriter out = response.getWriter();
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("code", ResultCode.NO_PERMISSION);
-                    map.put("message", "权限不足");
-                    out.write(objectMapper.writeValueAsString(map));
+                    out.write(objectMapper.writeValueAsString(Result.failed(ResultCode.NO_PERMISSION, "权限不足")));
                     out.flush();
                     out.close();
                 })
@@ -129,13 +111,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 //退出成功，返回json
                 .logoutSuccessHandler((request, response, authentication) -> {
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("code", ResultCode.SUCCESS);
-                    map.put("message", "退出成功");
-                    map.put("data", authentication);
                     response.setContentType("application/json;charset=utf-8");
                     PrintWriter out = response.getWriter();
-                    out.write(objectMapper.writeValueAsString(map));
+                    out.write(objectMapper.writeValueAsString(Result.success(authentication, "退出成功")));
                     out.flush();
                     out.close();
                 })
