@@ -12,7 +12,6 @@ package me.berg.forming.util;
 public enum ResultCode {
     /* 成功 */
     SUCCESS(200, "成功"),
-
     /* 默认失败 */
     COMMON_FAIL(999, "失败"),
 

@@ -20,13 +20,13 @@ public class TestController {
         return "hello security!";
     }
 
-    @GetMapping("/user/test")
+    @GetMapping("/api/user/test")
     public Result<Object> userCommonRequest(@AuthenticationPrincipal UserEntity user) {
         System.out.println("User: " + user.getUsername() + " Authorities: " + user.getAuthorities());
         return new Result<>(ResultCode.SUCCESS);
     }
 
-    @GetMapping("/admin/test")
+    @GetMapping("/api/admin/test")
     public Result<Object> adminCommonRequest(@AuthenticationPrincipal UserEntity user) {
         System.out.println("User: " + user.getUsername() + " Authorities: " + user.getAuthorities());
         return new Result<>(ResultCode.SUCCESS);

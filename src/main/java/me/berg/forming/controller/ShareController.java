@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiParam;
 import me.berg.forming.util.Result;
 import org.springframework.web.bind.annotation.*;
 
-@Api(tags = "分享的表单")
+@Api(tags = "分享表单")
 @RestController
 @RequestMapping("/s")
 @CrossOrigin("*")

@@ -6,9 +6,9 @@ import me.berg.forming.util.Result;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+@Api(tags = "文件上传")
 @RestController
 @RequiredArgsConstructor
-@Api("文件上传")
 public class UploadFileController {
 
 

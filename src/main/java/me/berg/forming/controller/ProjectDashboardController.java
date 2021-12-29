@@ -7,9 +7,9 @@ import me.berg.forming.util.Result;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Api(tags = "Dashboard")
 @RestController
 @RequiredArgsConstructor
-@Api(tags = "Dashboard")
 public class ProjectDashboardController {
 
 
@@ -17,7 +17,7 @@ public class ProjectDashboardController {
      * 项目收集信息
      */
     @GetMapping("/user/project/report/stats")
-    public Result projectReportStats(String projectKey) {
+    public Result<Object> projectReportStats(String projectKey) {
 //        //浏览量
 //        Long viewCount = redisUtils.hmSize(StrUtil.format(PROJECT_VIEW_IP_LIST, projectKey));
 //        //平均完成时间
@@ -31,7 +31,7 @@ public class ProjectDashboardController {
      * 项目收集情况 按周查看
      */
     @GetMapping("/user/project/report/situation")
-    public Result projectReportSituation(String projectKey) {
+    public Result<Object> projectReportSituation(String projectKey) {
 //        return ResultJsonUtil.success(projectDashboardService.projectReportSituation(projectKey));
         return Result.success();
     }
@@ -41,7 +41,7 @@ public class ProjectDashboardController {
      * 项目收集位置情况
      */
     @GetMapping("/user/project/report/position")
-    public Result projectReportPosition(String projectKey) {
+    public Result<Object> projectReportPosition(String projectKey) {
 //        return ResultJsonUtil.success(projectDashboardService.projectReportPosition(projectKey));
         return Result.success();
     }
@@ -51,7 +51,7 @@ public class ProjectDashboardController {
      * 项目收集设备
      */
     @GetMapping("/user/project/report/device")
-    public Result projectReportDevice(String projectKey) {
+    public Result<Object> projectReportDevice(String projectKey) {
 //        return ResultJsonUtil.success(projectDashboardService.projectReportDevice(projectKey));
         return Result.success();
     }
@@ -61,7 +61,7 @@ public class ProjectDashboardController {
      * 项目收集来源
      */
     @GetMapping("/user/project/report/source")
-    public Result projectReportSource(String projectKey) {
+    public Result<Object> projectReportSource(String projectKey) {
 //        return ResultJsonUtil.success(projectDashboardService.projectReportSource(projectKey));
         return Result.success();
     }
@@ -70,7 +70,7 @@ public class ProjectDashboardController {
      * 数据分析
      */
     @GetMapping("/user/project/report/analysis")
-    public Result projectReportAnalysis(String projectKey) {
+    public Result<Object> projectReportAnalysis(String projectKey) {
 //        return ResultJsonUtil.success(projectDashboardService.projectReportAnalysis(projectKey));
         return Result.success();
     }
