@@ -26,9 +26,8 @@ public class UserController {
 
     @ApiOperation("当前登录用户详情")
     @GetMapping("/current/detail")
-    public Result<Object> queryCurrentUser(@RequestAttribute @ApiParam(name = "userId", value = "用户ID") String userId) {
-        UserEntity userEntity = userService.getById(userId);
-        return Result.success(userEntity, "获取成功!");
+    public Result<Object> queryCurrentUser(@AuthenticationPrincipal UserEntity user) {
+        return Result.success(user, "获取成功!");
     }
 
 

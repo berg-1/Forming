@@ -2,6 +2,8 @@ package me.berg.forming.controller;
 
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
+import me.berg.forming.entity.UserEntity;
+import me.berg.forming.service.UserService;
 import me.berg.forming.util.Result;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,14 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 
 @Api(tags = "登录控制")
 @RestController
 @RequiredArgsConstructor
 public class LoginController {
 
-    final
-    AuthenticationManager authenticationManager;
+    final AuthenticationManager authenticationManager;
+    final UserService userService;
 
     @ApiOperation(value = "用户登录", notes = "用户登录，服务器进行反馈。")
     @ApiResponses({
@@ -30,6 +33,10 @@ public class LoginController {
                                 HttpServletRequest req) {
         try {
             req.login(username, password);
+            UserEntity userEntity = new UserEntity();
+            userEntity.setLastLoginTime(LocalDateTime.now());
+            userEntity.setUserId(username);
+            userService.updateById(userEntity);
             return Result.success();
         } catch (ServletException e) {
             e.printStackTrace();

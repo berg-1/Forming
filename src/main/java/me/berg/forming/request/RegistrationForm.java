@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import me.berg.forming.entity.UserEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -26,6 +27,6 @@ public class RegistrationForm {
 
     public UserEntity toUser(PasswordEncoder passwordEncoder) {
         List<String> role = Collections.singletonList("ROLE_USER");
-        return new UserEntity(userId, name, passwordEncoder.encode(password), role);
+        return new UserEntity(userId, name, passwordEncoder.encode(password), role, LocalDateTime.now());
     }
 }

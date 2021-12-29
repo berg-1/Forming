@@ -89,6 +89,14 @@ public class UserEntity implements UserDetails {
         this.roles = role;
     }
 
+    public UserEntity(String userId, String name, String encode, List<String> role, LocalDateTime time) {
+        this.userId = userId;
+        this.name = name;
+        this.password = encode;
+        this.roles = role;
+        this.lastLoginTime = time;
+    }
+
     public UserEntity(String userId, String s) {
         this.userId = userId;
         this.password = s;
