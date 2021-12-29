@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 public class CustomPasswordEncoder implements PasswordEncoder {
     @Override
     public String encode(CharSequence charSequence) {
-        //加密方法可以根据自己的需要修改
-        // TODO 进行密码加密
+        // 加密方法可以根据自己的需要修改
+        // 加密方式：sha256
         return DigestUtil.sha256Hex(charSequence.toString());
     }
 
