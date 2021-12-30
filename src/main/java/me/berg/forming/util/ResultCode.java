@@ -1,5 +1,7 @@
 package me.berg.forming.util;
 
+import io.swagger.annotations.Api;
+
 /**
  * 返回码定义<br/>
  * 规定:<br/>
@@ -9,6 +11,7 @@ package me.berg.forming.util;
  *  3001～3999 区间表示接口异常<br/>
  * Create in 2019/7/22 19:28
  */
+@Api("响应码")
 public enum ResultCode {
     /* 成功 */
     SUCCESS(200, "成功"),

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@ApiModel(value = "用户实体类", description = "用户实体中包含用户相关的所有业务字段，如有需要请另行添加")
+@ApiModel(value = "用户实体类", description = "用户实体中包含用户相关的所有业务字段")
 @Data
 @NoArgsConstructor
 @TableName("user")
@@ -72,9 +72,11 @@ public class UserEntity implements UserDetails {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime lastLoginTime;
 
+    @ApiModelProperty(value = "用户角色")
     @TableField(exist = false)
     private List<String> roles;
 
+    @ApiModelProperty(value = "授权信息")
     @TableField(exist = false)
     private Collection<? extends GrantedAuthority> authorities;
 
