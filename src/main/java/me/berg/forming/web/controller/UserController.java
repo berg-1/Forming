@@ -1,4 +1,4 @@
-package me.berg.forming.controller;
+package me.berg.forming.web.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,7 +26,7 @@ public class UserController {
 
     @ApiOperation("当前登录用户详情")
     @GetMapping("/current/detail")
-    public Result<Object> queryCurrentUser(@AuthenticationPrincipal UserEntity user) {
+    public Result<UserEntity> queryCurrentUser(@AuthenticationPrincipal UserEntity user) {
         return Result.success(user, "获取成功!");
     }
 

@@ -1,4 +1,4 @@
-package me.berg.forming.controller;
+package me.berg.forming.web.controller;
 
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;

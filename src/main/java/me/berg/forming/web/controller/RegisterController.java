@@ -1,4 +1,4 @@
-package me.berg.forming.controller;
+package me.berg.forming.web.controller;
 
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,6 @@ import me.berg.forming.service.UserAuthorityService;
 import me.berg.forming.service.UserService;
 import me.berg.forming.util.ResultCode;
 import me.berg.forming.util.Result;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
