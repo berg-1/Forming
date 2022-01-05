@@ -3,7 +3,7 @@ package me.berg.forming.web.controller;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.berg.forming.request.RegistrationForm;
+import me.berg.forming.request.RegistrationRequest;
 import me.berg.forming.entity.UserAuthority;
 import me.berg.forming.entity.UserEntity;
 import me.berg.forming.exception.UsernameAlreadyExistsException;
@@ -40,7 +40,7 @@ public class RegisterController {
             @ApiResponse(code = 2008, message = "用户已存在")
     })
     @PostMapping(path = "/register")
-    public Result<Object> userRegistration(RegistrationForm form) {
+    public Result<Object> userRegistration(RegistrationRequest form) {
         UserEntity userEntity = form.toUser(passwordEncoder);
         log.info("Register ID: " + userEntity.getUserId());
         log.info("Register PW: " + userEntity.getPassword());

@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @ApiModel("注册请求表单")
-public class RegistrationForm {
+public class RegistrationRequest {
 
     @ApiModelProperty(value = "用户ID", required = true)
     private String userId;
