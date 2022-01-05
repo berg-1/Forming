@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.berg.forming.entity.UserEntity;
-import me.berg.forming.request.UpdateUserRequest;
+import me.berg.forming.web.request.UpdateUserRequest;
 import me.berg.forming.service.UserService;
 import me.berg.forming.util.Result;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

@@ -1,4 +1,4 @@
-package me.berg.forming.request;
+package me.berg.forming.web.request;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

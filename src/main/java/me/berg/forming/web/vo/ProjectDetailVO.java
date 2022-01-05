@@ -1,4 +1,4 @@
-package me.berg.forming.project.vo;
+package me.berg.forming.web.vo;
 
 import lombok.NoArgsConstructor;
 import me.berg.forming.entity.ProjectItem;

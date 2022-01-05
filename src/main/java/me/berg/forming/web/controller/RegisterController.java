@@ -3,7 +3,7 @@ package me.berg.forming.web.controller;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.berg.forming.request.RegistrationRequest;
+import me.berg.forming.web.request.RegistrationRequest;
 import me.berg.forming.entity.UserAuthority;
 import me.berg.forming.entity.UserEntity;
 import me.berg.forming.exception.UsernameAlreadyExistsException;

@@ -1,4 +1,4 @@
-package me.berg.forming.project.vo;
+package me.berg.forming.web.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
