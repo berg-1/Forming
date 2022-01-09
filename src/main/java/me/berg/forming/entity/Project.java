@@ -27,11 +27,12 @@ public class Project implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 项目模板ID
+     * 项目KEY UUID
      */
-    @TableId(value = "pt_id", type = IdType.AUTO)
-    @ApiModelProperty("项目模板ID")
-    private Integer pt_id;
+    @TableId(value = "`key`", type = IdType.AUTO)
+    @ApiModelProperty("Key")
+    @TableField("`key`")
+    private String key;
 
     /**
      * 项目名称
@@ -39,14 +40,6 @@ public class Project implements Serializable {
     @ApiModelProperty("项目名称")
     @TableField("name")
     private String name;
-
-    /**
-     * 项目KEY UUID
-     */
-    @ApiModelProperty("Key")
-    @TableField("`key`")
-    private String key;
-
 
     /**
      * 项目描述
