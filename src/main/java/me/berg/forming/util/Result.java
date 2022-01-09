@@ -56,10 +56,6 @@ public class Result<T> {
         return restResult(data, ResultCode.SUCCESS, null);
     }
 
-    public static Result<Boolean> success(String msg) {
-        return restResult(null, ResultCode.SUCCESS, msg);
-    }
-
     public static <T> Result<T> success(T data, String msg) {
         return restResult(data, ResultCode.SUCCESS, msg);
     }

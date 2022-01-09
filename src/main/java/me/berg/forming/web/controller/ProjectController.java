@@ -2,7 +2,6 @@ package me.berg.forming.web.controller;
 
 
 import cn.hutool.core.util.IdUtil;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -111,7 +110,7 @@ public class ProjectController {
     @PostMapping("/delete")
     public Result<Boolean> deleteProject(@RequestBody Project request, @AuthenticationPrincipal UserEntity user) {
         if (projectService.deleteByKey(request.getKey(), user.getUserId()))
-            return Result.success("删除成功!");
+            return Result.success(null, "删除成功!");
         return Result.failed("删除失败!");
     }
 
@@ -119,10 +118,20 @@ public class ProjectController {
      * 查询回收站项目
      */
     @ApiOperation("查询回收站项目")
-    @GetMapping("/recycle/page")
+    @GetMapping("/recycle/list")
     public Result<List<Project>> queryRecycleProjects(@AuthenticationPrincipal UserEntity user) {
         List<Project> recycles = projectService.listRecycle(user.getUserId());
         return Result.success(recycles);
+    }
+
+    /**
+     * 从回收站中恢复项目
+     */
+    @PostMapping("/recycle/restore")
+    public Result<Boolean> restoreRecycleProject(@RequestBody Project request, @AuthenticationPrincipal UserEntity user) {
+        if (projectService.recycleByKey(request.getKey(), user.getUserId()))
+            return Result.success(null, "恢复成功!");
+        return Result.failed("恢复失败!");
     }
 
 }

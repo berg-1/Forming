@@ -6,9 +6,9 @@ import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.berg.forming.entity.UserEntity;
-import me.berg.forming.web.request.UpdateUserRequest;
 import me.berg.forming.service.UserService;
 import me.berg.forming.util.Result;
+import me.berg.forming.web.request.UpdateUserRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +33,7 @@ public class UserController {
 
     @ApiOperation("修改当前用户信息")
     @PostMapping(value = "/update")
-    public Result<Object> updateUser(@ApiParam(name = "userEntity", value = "Message to send", required = true) @RequestBody UserEntity userEntity,
+    public Result<String> updateUser(@ApiParam(name = "userEntity", value = "Message to send", required = true) @RequestBody UserEntity userEntity,
                                      @ApiParam(name = "userId", value = "用户ID") @RequestAttribute String userId) {
         return Result.success(userService.updateById(userEntity) + "@" + userId);
     }
