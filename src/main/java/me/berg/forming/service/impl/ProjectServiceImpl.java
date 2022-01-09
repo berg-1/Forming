@@ -24,8 +24,12 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
     public List<Project> listById(String userId) {
         return this.list(Wrappers.<Project>lambdaQuery().eq(Project::getUserId, userId).orderByDesc(Project::getCreateTime));
     }
+
+    @Override
+    public boolean deleteByKey(String projectKey, String userId) {
+        return this.update(new Project() {{
+            setDeleted(Boolean.TRUE);
+        }}, Wrappers.<Project>lambdaQuery().eq(Project::getKey, projectKey).eq(Project::getUserId, userId));
+    }
 }
-
-
-
 

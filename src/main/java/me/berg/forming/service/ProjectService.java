@@ -18,5 +18,18 @@ public interface ProjectService extends IService<Project> {
      */
     Project getByKey(String key, String userId);
 
+    /**
+     * 获取用户项目列表
+     * @param userId 用户ID
+     * @return User的Project的List
+     */
     List<Project> listById(String userId);
+
+    /**
+     * 根据项目key将项目deleted设为true
+     * @param projectKey 项目Key
+     * @param userId 用户ID
+     * @return 是否删除成功
+     */
+    boolean deleteByKey(String projectKey, String userId);
 }

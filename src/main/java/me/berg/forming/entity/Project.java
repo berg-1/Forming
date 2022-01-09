@@ -67,4 +67,14 @@ public class Project implements Serializable {
     @TableField("create_time")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
+
+    /**
+     * 是否被移入回收站
+     */
+    @ApiModelProperty("是否被移入回收站")
+    @TableField("deleted")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Boolean deleted;
+
+
 }

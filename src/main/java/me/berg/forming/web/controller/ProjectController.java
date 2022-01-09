@@ -23,7 +23,7 @@ import java.util.List;
 @Api(tags = "项目管理")
 @Slf4j
 @RestController
-@RequestMapping("user/project/")
+@RequestMapping("/user/project/")
 @RequiredArgsConstructor
 public class ProjectController {
 
@@ -97,8 +97,20 @@ public class ProjectController {
      * 根据条件查询所有项目 只返回Project列表
      */
     @GetMapping("/list")
+    @ApiOperation("根据条件查询所有项目 只返回Project列")
     public Result<List<Project>> listProjects(@AuthenticationPrincipal UserEntity user) {
         List<Project> entityList = projectService.listById(user.getUserId());
         return Result.success(entityList);
+    }
+
+    /**
+     * 将项目移入回收站
+     */
+    @ApiOperation("将项目移入回收站")
+    @PostMapping("/delete")
+    public Result<Boolean> deleteProject(@RequestBody Project request, @AuthenticationPrincipal UserEntity user) {
+        if (projectService.deleteByKey(request.getKey(), user.getUserId()))
+            return Result.success();
+        return Result.failed();
     }
 }
