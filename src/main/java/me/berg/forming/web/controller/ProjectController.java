@@ -45,19 +45,6 @@ public class ProjectController {
     }
 
     /**
-     * 查询项目模板详情
-     * 包含项目信息 项目表单项信息
-     */
-    @ApiOperation("查询项目模板详情")
-    @GetMapping("/details/{key}")
-    public Result<Object> queryProjectTemplateDetails(@PathVariable String key) {
-        Project templateEntity = projectService.getByKey(key);
-        List<ProjectItem> projectItemList = projectItemService.listByTemplateKey(key);
-        return Result.success(new ProjectDetailVO(templateEntity, projectItemList));
-    }
-
-
-    /**
      * 发布项目
      */
     @ApiOperation("发布项目")
@@ -69,6 +56,18 @@ public class ProjectController {
             projectItemService.saveItemByProjectKey(item, projectKey);
         }
         return Result.success(projectKey, "发布成功!");
+    }
+
+    /**
+     * 查询项目模板详情
+     * 包含项目信息 项目表单项信息
+     */
+    @ApiOperation("查询项目模板详情")
+    @GetMapping("/details/{key}")
+    public Result<Object> queryProjectTemplateDetails(@PathVariable String key) {
+        Project templateEntity = projectService.getByKey(key);
+        List<ProjectItem> projectItemList = projectItemService.listByTemplateKey(key);
+        return Result.success(new ProjectDetailVO(templateEntity, projectItemList));
     }
 
 }
