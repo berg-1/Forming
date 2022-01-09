@@ -107,9 +107,9 @@ public class ProjectController {
      * 将项目移入回收站
      */
     @ApiOperation("将项目移入回收站")
-    @PostMapping("/delete")
+    @PostMapping("/recycle")
     public Result<Boolean> deleteProject(@RequestBody Project request, @AuthenticationPrincipal UserEntity user) {
-        if (projectService.deleteByKey(request.getKey(), user.getUserId()))
+        if (projectService.recycleByKey(request.getKey(), user.getUserId()))
             return Result.success(null, "删除成功!");
         return Result.failed("删除失败!");
     }
@@ -127,11 +127,27 @@ public class ProjectController {
     /**
      * 从回收站中恢复项目
      */
+    @ApiOperation("从回收站中恢复项目")
     @PostMapping("/recycle/restore")
     public Result<Boolean> restoreRecycleProject(@RequestBody Project request, @AuthenticationPrincipal UserEntity user) {
-        if (projectService.recycleByKey(request.getKey(), user.getUserId()))
+        if (projectService.restoreByKey(request.getKey(), user.getUserId()))
             return Result.success(null, "恢复成功!");
         return Result.failed("恢复失败!");
+    }
+
+    /**
+     * 从回收站中删除项目
+     */
+    @ApiOperation("从回收站中删除项目")
+    @PostMapping("/recycle/delete")
+    public Result<String> deleteRecycleProject(@RequestBody Project project, @AuthenticationPrincipal UserEntity user) {
+        boolean remove = projectItemService.deleteByKey(project.getKey(), user.getUserId());
+        if (remove) {
+            if (projectService.deleteByKey(project.getKey(), user.getUserId()))
+                return Result.success("项目删除成功");
+            return Result.failed("项目删除失败，但表单项已删除!");
+        }
+        return Result.failed("项目删除失败!");
     }
 
 }

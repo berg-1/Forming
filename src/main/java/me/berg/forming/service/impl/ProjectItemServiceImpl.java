@@ -22,9 +22,15 @@ public class ProjectItemServiceImpl extends ServiceImpl<ProjectItemMapper, Proje
     }
 
     @Override
-    public boolean saveItemByProjectKey(ProjectItem item, String key) {
+    public void saveItemByProjectKey(ProjectItem item, String key) {
         item.setProjectKey(key);
-        return this.save(item);
+        this.save(item);
+    }
+
+    @Override
+    public Boolean deleteByKey(String projectKey, String userId) {
+        return this.remove(Wrappers.<ProjectItem>lambdaQuery()
+                .eq(ProjectItem::getProjectKey, projectKey));
     }
 }
 

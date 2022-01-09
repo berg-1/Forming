@@ -29,7 +29,7 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
     }
 
     @Override
-    public Boolean deleteByKey(String projectKey, String userId) {
+    public Boolean recycleByKey(String projectKey, String userId) {
         return this.update(new Project() {{
             setDeleted(Boolean.TRUE);
         }}, Wrappers.<Project>lambdaQuery().eq(Project::getKey, projectKey).eq(Project::getUserId, userId));
@@ -44,11 +44,17 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
     }
 
     @Override
-    public Boolean recycleByKey(String projectKey, String userId) {
+    public Boolean restoreByKey(String projectKey, String userId) {
         return this.update(new Project() {{
             setDeleted(Boolean.FALSE);
         }}, Wrappers.<Project>lambdaQuery().eq(Project::getKey, projectKey).eq(Project::getUserId, userId));
+    }
 
+    @Override
+    public Boolean deleteByKey(String projectKey, String userId) {
+        return this.remove(Wrappers.<Project>lambdaQuery().eq(Project::getUserId, userId)
+                .eq(Project::getDeleted, Boolean.TRUE)
+                .eq(Project::getKey, projectKey));
     }
 }
 

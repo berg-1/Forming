@@ -31,7 +31,7 @@ public interface ProjectService extends IService<Project> {
      * @param userId 用户ID
      * @return 是否删除成功
      */
-    Boolean deleteByKey(String projectKey, String userId);
+    Boolean recycleByKey(String projectKey, String userId);
 
     /**
      * 获取回收站中的项目
@@ -46,5 +46,13 @@ public interface ProjectService extends IService<Project> {
      * @param userId 用户ID
      * @return 是否删除成功
      */
-    Boolean recycleByKey(String projectKey, String userId);
+    Boolean restoreByKey(String projectKey, String userId);
+
+    /**
+     * 彻底删除项目(从回收站移除)
+     * @param projectKey 项目ID
+     * @param userId 用户ID
+     * @return 是否彻底删除成功
+     */
+    Boolean deleteByKey(String projectKey, String userId);
 }
