@@ -22,7 +22,10 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
 
     @Override
     public List<Project> listById(String userId) {
-        return this.list(Wrappers.<Project>lambdaQuery().eq(Project::getUserId, userId).orderByDesc(Project::getCreateTime));
+        return this.list(Wrappers.<Project>lambdaQuery()
+                .eq(Project::getUserId, userId)
+                .eq(Project::getDeleted, false)
+                .orderByDesc(Project::getCreateTime));
     }
 
     @Override
@@ -30,6 +33,14 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
         return this.update(new Project() {{
             setDeleted(Boolean.TRUE);
         }}, Wrappers.<Project>lambdaQuery().eq(Project::getKey, projectKey).eq(Project::getUserId, userId));
+    }
+
+    @Override
+    public List<Project> listRecycle(String userId) {
+        return this.list(Wrappers.<Project>lambdaQuery()
+                .eq(Project::getUserId, userId)
+                .eq(Project::getDeleted, true)
+                .orderByDesc(Project::getCreateTime));
     }
 }
 

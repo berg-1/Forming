@@ -2,6 +2,7 @@ package me.berg.forming.web.controller;
 
 
 import cn.hutool.core.util.IdUtil;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -78,10 +79,10 @@ public class ProjectController {
 
 
     /**
-     * 查询项目模板详情
+     * 查询项目完整信息<br/>
      * 包含项目信息 项目表单项信息
      */
-    @ApiOperation("查询某个项目模板详情 包含项目(Project)信息和项目表单项(Project Item)信息")
+    @ApiOperation("查询项目完整信息 包含项目(Project)信息和项目表单项(Project Item)信息")
     @GetMapping("/details/{key}")
     public Result<Object> queryProjectDetails(@PathVariable String key, @AuthenticationPrincipal UserEntity user) {
         Project project = projectService.getByKey(key, user.getUserId());
@@ -97,7 +98,7 @@ public class ProjectController {
      * 根据条件查询所有项目 只返回Project列表
      */
     @GetMapping("/list")
-    @ApiOperation("根据条件查询所有项目 只返回Project列")
+    @ApiOperation("根据条件查询所有项目 只返回Project列表")
     public Result<List<Project>> listProjects(@AuthenticationPrincipal UserEntity user) {
         List<Project> entityList = projectService.listById(user.getUserId());
         return Result.success(entityList);
@@ -110,7 +111,18 @@ public class ProjectController {
     @PostMapping("/delete")
     public Result<Boolean> deleteProject(@RequestBody Project request, @AuthenticationPrincipal UserEntity user) {
         if (projectService.deleteByKey(request.getKey(), user.getUserId()))
-            return Result.success();
-        return Result.failed();
+            return Result.success("删除成功!");
+        return Result.failed("删除失败!");
     }
+
+    /**
+     * 查询回收站项目
+     */
+    @ApiOperation("查询回收站项目")
+    @GetMapping("/recycle/page")
+    public Result<List<Project>> queryRecycleProjects(@AuthenticationPrincipal UserEntity user) {
+        List<Project> recycles = projectService.listRecycle(user.getUserId());
+        return Result.success(recycles);
+    }
+
 }

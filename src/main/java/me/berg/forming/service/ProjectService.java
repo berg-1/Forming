@@ -32,4 +32,11 @@ public interface ProjectService extends IService<Project> {
      * @return 是否删除成功
      */
     boolean deleteByKey(String projectKey, String userId);
+
+    /**
+     * 获取回收站中的项目
+     * @param userId 用户ID
+     * @return 回收站中User的Project的List
+     */
+    List<Project> listRecycle(String userId);
 }
