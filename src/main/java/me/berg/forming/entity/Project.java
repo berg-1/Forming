@@ -4,11 +4,10 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import springfox.documentation.spring.web.json.Json;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -31,7 +30,6 @@ public class Project implements Serializable {
      */
     @TableId(value = "`key`", type = IdType.AUTO)
     @ApiModelProperty("Key")
-    @TableField("`key`")
     private String key;
 
     /**
@@ -59,11 +57,14 @@ public class Project implements Serializable {
      * 发布者ID
      */
     @ApiModelProperty("发布者ID")
-    private String user_id;
+    @TableField("user_id")
+    private String userId;
 
     /**
      * 项目模板创建时间
      */
     @ApiModelProperty("项目模板创建时间")
-    private LocalDateTime create_time;
+    @TableField("create_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createTime;
 }

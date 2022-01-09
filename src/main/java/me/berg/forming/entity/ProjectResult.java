@@ -26,19 +26,19 @@ public class ProjectResult implements Serializable {
      */
     @TableId(value = "pur_id", type = IdType.AUTO)
     @ApiModelProperty("填写表单ID")
-    private Long pur_id;
+    private Long purId;
 
     /**
      * 上传用户ID
      */
     @ApiModelProperty("上传用户ID")
-    private String user_id;
+    private String userId;
 
     /**
      * 对应项目模板ID
      */
     @ApiModelProperty("对应项目模板ID")
-    private Integer pr_id;
+    private Integer prId;
 
     /**
      * 用户填写的表单，JSON化
@@ -50,5 +50,5 @@ public class ProjectResult implements Serializable {
      * 上传时间
      */
     @ApiModelProperty("上传时间")
-    private LocalDateTime update_time;
+    private LocalDateTime localDateTime;
 }

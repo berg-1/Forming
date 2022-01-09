@@ -27,7 +27,7 @@ public class Result<T> {
     private String statusMsg;
 
 
-    @ApiModelProperty(value = "数据")
+    @ApiModelProperty(value = "返回的数据")
     private T data;
 
 
