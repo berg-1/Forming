@@ -2,7 +2,6 @@ package me.berg.forming.web.controller;
 
 
 import cn.hutool.core.util.IdUtil;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -60,15 +59,37 @@ public class ProjectController {
     }
 
     /**
+     * 查询单个项目(Project)
+     */
+    @ApiOperation("查询单个项目(Project)")
+    @GetMapping("/items/{key}")
+    public Result<Project> queryProject(@PathVariable String key, @AuthenticationPrincipal UserEntity user) {
+        return Result.success(projectService.getByKey(key, user.getUserId()));
+    }
+
+    /**
+     * 查询单个项目的表单项信息(Project Items)
+     */
+    @ApiOperation("查询单个项目(Project)")
+    @GetMapping("/{key}")
+    public Result<List<ProjectItem>> queryProjectItems(@PathVariable String key) {
+        return Result.success(projectItemService.listByTemplateKey(key));
+    }
+
+
+    /**
      * 查询项目模板详情
      * 包含项目信息 项目表单项信息
      */
     @ApiOperation("查询某个项目模板详情 包含项目(Project)信息和项目表单项(Project Item)信息")
     @GetMapping("/details/{key}")
-    public Result<Object> queryProjectTemplateDetails(@PathVariable String key) {
-        Project templateEntity = projectService.getByKey(key);
-        List<ProjectItem> projectItemList = projectItemService.listByTemplateKey(key);
-        return Result.success(new ProjectDetailVO(templateEntity, projectItemList));
+    public Result<Object> queryProjectDetails(@PathVariable String key, @AuthenticationPrincipal UserEntity user) {
+        Project project = projectService.getByKey(key, user.getUserId());
+        List<ProjectItem> projectItemList = null;
+        if (project != null) {
+            projectItemList = projectItemService.listByTemplateKey(key);
+        }
+        return Result.success(new ProjectDetailVO(project, projectItemList));
     }
 
 
@@ -77,11 +98,7 @@ public class ProjectController {
      */
     @GetMapping("/list")
     public Result<List<Project>> listProjects(@AuthenticationPrincipal UserEntity user) {
-        List<Project> entityList = projectService.list(Wrappers.<Project>lambdaQuery().eq(Project::getUserId, user.getUserId())
-                .orderByDesc(Project::getCreateTime));
-        for (Project project : entityList) {
-            log.info("Project {}, Name {}, Create Time {}", project.getKey(), project.getName(), project.getCreateTime());
-        }
+        List<Project> entityList = projectService.listById(user.getUserId());
         return Result.success(entityList);
     }
 }
