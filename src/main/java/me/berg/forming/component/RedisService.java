@@ -121,4 +121,17 @@ public class RedisService {
         return executeSync(commands -> commands.hgetall(key));
     }
 
+    /**
+     * 在Redis中递增
+     *
+     * @param key 键
+     * @param num 增加多少
+     * @return 增加结果
+     */
+    public Long incr(String key, Integer num) {
+        if (num < 0) {
+            throw new RuntimeException("递增因子必须大于0");
+        }
+        return executeSync(commands -> commands.incr(key));
+    }
 }
