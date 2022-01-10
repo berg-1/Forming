@@ -34,25 +34,34 @@ public class ProjectResult implements Serializable {
      * 上传用户ID
      */
     @ApiModelProperty("上传用户ID")
+    @TableField("user_id")
     private String userId;
 
     /**
      * 对应项目模板ID
      */
     @ApiModelProperty("对应项目模板ID")
+    @TableField("project_key")
     private String projectKey;
 
     /**
      * 用户填写的表单，JSON化
      */
     @ApiModelProperty("用户填写的表单，JSON化")
+    @TableField("`data`")
     private String data;
 
     /**
      * 上传时间
      */
     @ApiModelProperty("上传时间")
+    @TableField("update_time")
     private LocalDateTime localDateTime;
 
+    /**
+     * 填写序列号
+     */
+    @ApiModelProperty("填写序列号")
+    @TableField("serial_number")
     private Long serialNumber;
 }
