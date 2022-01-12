@@ -40,7 +40,11 @@ public class ProjectController {
         project.setCreateTime(LocalDateTime.now());
         project.setUserId(user.getUserId());
         log.info("用户{}创建项目:{}, Authorities:{}. ", user.getUsername(), project.getKey(), user.getAuthorities());
-        projectService.save(project);
+        try {
+            projectService.save(project);
+        } catch (Exception e) {
+            return Result.failed("创建失败！");
+        }
         return Result.success(project.getKey(), "创建成功!");
     }
 
@@ -143,7 +147,7 @@ public class ProjectController {
     @PostMapping("/recycle/delete")
     public Result<String> deleteRecycleProject(@RequestBody Project project, @AuthenticationPrincipal UserEntity user) {
         boolean remove = projectItemService.deleteByKey(project.getKey(), user.getUserId());
-        if (remove) {
+        if (remove || projectItemService.listByTemplateKey(project.getKey()).isEmpty()) {
             if (projectService.deleteByKey(project.getKey(), user.getUserId()))
                 return Result.success("项目删除成功");
             return Result.failed("项目删除失败，但表单项已删除!");
