@@ -7,6 +7,7 @@ import me.berg.forming.mapper.ProjectItemMapper;
 import me.berg.forming.service.ProjectItemService;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 /**
@@ -22,9 +23,9 @@ public class ProjectItemServiceImpl extends ServiceImpl<ProjectItemMapper, Proje
     }
 
     @Override
-    public void saveItemByProjectKey(ProjectItem item, String key) {
+    public Boolean saveItemByProjectKey(ProjectItem item, String key) {
         item.setProjectKey(key);
-        this.save(item);
+        return this.save(item);
     }
 
     @Override
