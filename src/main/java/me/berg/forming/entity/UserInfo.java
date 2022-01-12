@@ -36,9 +36,9 @@ public class UserInfo implements Serializable {
     private String content;
 
     /**
-    * 信息类型（如身份证、手机号、住址）
+    * 信息类型
     */
-    @ApiModelProperty("信息类型（如身份证、手机号、住址）")
-    private String type;
+    @ApiModelProperty("信息类型")
+    private Integer type;
 
 }
