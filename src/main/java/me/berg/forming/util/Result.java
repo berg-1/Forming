@@ -85,7 +85,7 @@ public class Result<T> {
         return restResult(null, ResultCode.COMMON_FAIL, msg);
     }
 
-    public static <T> Result<T> failed(String msg, T data) {
+    public static <T> Result<T> failed(T data, String msg) {
         return restResult(data, ResultCode.COMMON_FAIL, msg);
     }
 

@@ -54,7 +54,7 @@ public class ProjectController {
         List<ProjectItem> items = request.getProjectItems();
         for (ProjectItem item : items) {
             Boolean success = projectItemService.saveItemByProjectKey(item, projectKey);
-            if (!success) return Result.failed(projectKey, "发布失败，请检查发布信息是否正确");
+            if (!success) return Result.failed("发布失败，请检查发布信息是否正确", projectKey);
         }
         return Result.success(projectKey, "发布成功!");
     }
