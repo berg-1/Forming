@@ -23,8 +23,8 @@ public class UserInfoType implements Serializable {
     /**
      * 类型名称
      */
-    @TableField(value = "type")
-    private String type;
+    @TableField(value = "label")
+    private String label;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

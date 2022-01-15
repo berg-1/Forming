@@ -36,6 +36,12 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
     }
 
     @Override
+    public Boolean removeAnyway(String projectKey, String userId) {
+        return this.remove(Wrappers.<Project>lambdaQuery().eq(Project::getUserId, userId)
+                .eq(Project::getKey, projectKey));
+    }
+
+    @Override
     public List<Project> listRecycle(String userId) {
         return this.list(Wrappers.<Project>lambdaQuery()
                 .eq(Project::getUserId, userId)

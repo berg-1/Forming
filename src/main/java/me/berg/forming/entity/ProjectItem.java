@@ -44,8 +44,8 @@ public class ProjectItem implements Serializable {
      * 问题名称<br/>
      * 表项的描述信息
      */
-    @TableField(value = "placeholder")
-    private String placeholder;
+    @TableField(value = "label")
+    private String label;
 
     /**
      * 表示该条目的JSON

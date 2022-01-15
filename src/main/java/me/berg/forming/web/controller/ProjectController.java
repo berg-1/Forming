@@ -119,6 +119,22 @@ public class ProjectController {
         return Result.failed("删除失败!");
     }
 
+
+    /**
+     * 不移动至回收站，直接删除
+     */
+    @ApiOperation("不移动至回收站，直接删除")
+    @PostMapping("/remove")
+    public Result<String> deleteAnyway(@RequestBody Project project, @AuthenticationPrincipal UserEntity user) {
+        boolean remove = projectItemService.deleteByKey(project.getKey(), user.getUserId());
+        if (remove || projectItemService.listByTemplateKey(project.getKey()).isEmpty()) {
+            if (projectService.removeAnyway(project.getKey(), user.getUserId()))
+                return Result.success("项目删除成功");
+            return Result.failed("项目删除失败，但表单项已删除!");
+        }
+        return Result.failed("项目删除失败!");
+    }
+
     /**
      * 查询回收站项目
      */

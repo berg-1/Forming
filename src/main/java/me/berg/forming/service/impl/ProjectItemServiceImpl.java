@@ -36,7 +36,6 @@ public class ProjectItemServiceImpl extends ServiceImpl<ProjectItemMapper, Proje
 
     @Override
     public Boolean deleteByKey(String projectKey, String userId) {
-        System.out.println(this.list(Wrappers.<ProjectItem>lambdaQuery().eq(ProjectItem::getProjectKey, projectKey)).isEmpty());
         return this.remove(Wrappers.<ProjectItem>lambdaQuery().eq(ProjectItem::getProjectKey, projectKey));
     }
 }
