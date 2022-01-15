@@ -65,6 +65,13 @@ public class ProjectItem implements Serializable {
     @TableField(value = "autofill")
     private Integer autofill;
 
+    /**
+     * 是否必填，默认为是
+     */
+    @TableField(value = "required")
+    private Integer required;
+
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
