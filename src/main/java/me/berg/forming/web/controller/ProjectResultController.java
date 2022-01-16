@@ -35,13 +35,13 @@ public class ProjectResultController {
     private final UserInfoService userInfoService;
 
     /**
-     * 创建填写结果
+     * 提交填写结果
      *
      * @param result 填写结果
      * @param user   UserEntity
      * @return success 或 failed
      */
-    @PostMapping("/create")
+    @PostMapping("/submit")
     public Result<String> createProjectResult(@RequestBody ProjectResult result,
                                               @AuthenticationPrincipal UserEntity user) {
         result.setUserId(user.getUserId());
