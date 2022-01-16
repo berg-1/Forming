@@ -22,6 +22,13 @@ public class ProjectItemServiceImpl extends ServiceImpl<ProjectItemMapper, Proje
     }
 
     @Override
+    public List<ProjectItem> listAutoFill(String key) {
+        return this.list(Wrappers.<ProjectItem>lambdaQuery()
+                .eq(ProjectItem::getProjectKey, key)
+                .ne(ProjectItem::getAutofill, 0));
+    }
+
+    @Override
     public Boolean saveItemByProjectKey(ProjectItem item, String key) {
         item.setProjectKey(key);
         boolean success;

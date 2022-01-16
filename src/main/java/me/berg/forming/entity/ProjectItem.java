@@ -75,4 +75,8 @@ public class ProjectItem implements Serializable {
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
+    public String getPath(){
+        return this.position.toString();
+    }
+
 }

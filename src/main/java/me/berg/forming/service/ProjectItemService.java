@@ -12,6 +12,8 @@ public interface ProjectItemService extends IService<ProjectItem> {
 
     List<ProjectItem> listByTemplateKey(String key);
 
+    List<ProjectItem> listAutoFill(String key);
+
     Boolean saveItemByProjectKey(ProjectItem item,String projectKey);
 
     Boolean deleteByKey(String key, String userId);
