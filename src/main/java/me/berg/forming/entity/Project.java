@@ -47,13 +47,6 @@ public class Project implements Serializable {
     private String describe;
 
     /**
-     * 构建表单的JSON数据
-     */
-    @ApiModelProperty("构建表单的JSON数据")
-    @TableField("content")
-    private String content;
-
-    /**
      * 发布者ID
      */
     @ApiModelProperty("发布者ID")
