@@ -17,7 +17,7 @@ public class ProjectItemServiceImpl extends ServiceImpl<ProjectItemMapper, Proje
         implements ProjectItemService {
 
     @Override
-    public List<ProjectItem> listByTemplateKey(String key) {
+    public List<ProjectItem> listByKey(String key) {
         return this.list(Wrappers.<ProjectItem>lambdaQuery().eq(ProjectItem::getProjectKey, key));
     }
 

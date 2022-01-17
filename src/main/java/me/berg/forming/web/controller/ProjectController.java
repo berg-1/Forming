@@ -78,7 +78,7 @@ public class ProjectController {
     @ApiOperation("查询单个项目(Project)")
     @GetMapping("/{key}")
     public Result<List<ProjectItem>> queryProjectItems(@PathVariable String key) {
-        return Result.success(projectItemService.listByTemplateKey(key));
+        return Result.success(projectItemService.listByKey(key));
     }
 
 
@@ -92,7 +92,7 @@ public class ProjectController {
         Project project = projectService.getByKey(key, user.getUserId());
         List<ProjectItem> projectItemList = null;
         if (project != null) {
-            projectItemList = projectItemService.listByTemplateKey(key);
+            projectItemList = projectItemService.listByKey(key);
         }
         return Result.success(new ProjectDetailVO(project, projectItemList));
     }
@@ -127,7 +127,7 @@ public class ProjectController {
     @PostMapping("/remove")
     public Result<String> deleteAnyway(@RequestBody Project project, @AuthenticationPrincipal UserEntity user) {
         boolean remove = projectItemService.deleteByKey(project.getKey(), user.getUserId());
-        if (remove || projectItemService.listByTemplateKey(project.getKey()).isEmpty()) {
+        if (remove || projectItemService.listByKey(project.getKey()).isEmpty()) {
             if (projectService.removeAnyway(project.getKey(), user.getUserId()))
                 return Result.success("项目删除成功");
             return Result.failed("项目删除失败，但表单项已删除!");
@@ -163,7 +163,7 @@ public class ProjectController {
     @PostMapping("/recycle/delete")
     public Result<String> deleteRecycleProject(@RequestBody Project project, @AuthenticationPrincipal UserEntity user) {
         boolean remove = projectItemService.deleteByKey(project.getKey(), user.getUserId());
-        if (remove || projectItemService.listByTemplateKey(project.getKey()).isEmpty()) {
+        if (remove || projectItemService.listByKey(project.getKey()).isEmpty()) {
             if (projectService.deleteByKey(project.getKey(), user.getUserId()))
                 return Result.success("项目删除成功");
             return Result.failed("项目删除失败，但表单项已删除!");

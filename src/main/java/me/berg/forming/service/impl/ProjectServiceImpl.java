@@ -21,6 +21,11 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
     }
 
     @Override
+    public Project getByKey(String key) {
+        return this.getOne(Wrappers.<Project>lambdaQuery().eq(Project::getKey, key));
+    }
+
+    @Override
     public List<Project> listById(String userId) {
         return this.list(Wrappers.<Project>lambdaQuery()
                 .eq(Project::getUserId, userId)

@@ -3,29 +3,25 @@ package me.berg.forming.web.controller;
 import cn.hutool.json.JSON;
 import cn.hutool.json.JSONUtil;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.berg.forming.entity.ProjectItem;
-import me.berg.forming.entity.ProjectResult;
-import me.berg.forming.entity.UserEntity;
-import me.berg.forming.entity.UserInfo;
+import me.berg.forming.entity.*;
 import me.berg.forming.service.ProjectItemService;
 import me.berg.forming.service.ProjectResultService;
 import me.berg.forming.service.ProjectService;
 import me.berg.forming.service.UserInfoService;
 import me.berg.forming.util.Result;
+import me.berg.forming.util.ResultCode;
+import me.berg.forming.web.vo.ProjectLoadVO;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Api(tags = "表单提交控制")
 @Slf4j
 @RestController
-@RequestMapping("/user/result/")
 @RequiredArgsConstructor
 public class ProjectResultController {
 
@@ -34,6 +30,20 @@ public class ProjectResultController {
     private final ProjectItemService projectItemService;
     private final UserInfoService userInfoService;
 
+    @ApiOperation("获得项目数据和自动填写数据")
+    @GetMapping("/share/{projectKey}")
+    public Result<ProjectLoadVO> loadProject(@PathVariable String projectKey, @AuthenticationPrincipal UserEntity user) {
+        Project project = projectService.getByKey(projectKey);
+        List<ProjectItem> items = projectItemService.listByKey(projectKey);
+        List<UserInfo> infos = null;
+        try {
+            infos = userInfoService.getUserInfos(user.getUserId());
+        } catch (NullPointerException e) {
+            return Result.failed(ResultCode.USER_NOT_LOGIN, "请先登录!");
+        }
+        return Result.success(new ProjectLoadVO(project, items, infos));
+    }
+
     /**
      * 提交填写结果
      *
@@ -41,7 +51,7 @@ public class ProjectResultController {
      * @param user   UserEntity
      * @return success 或 failed
      */
-    @PostMapping("/submit")
+    @PostMapping("/user/result/submit")
     public Result<String> createProjectResult(@RequestBody ProjectResult result,
                                               @AuthenticationPrincipal UserEntity user) {
         result.setUserId(user.getUserId());

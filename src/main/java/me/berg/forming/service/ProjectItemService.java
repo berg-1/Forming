@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface ProjectItemService extends IService<ProjectItem> {
 
-    List<ProjectItem> listByTemplateKey(String key);
+    List<ProjectItem> listByKey(String key);
 
     List<ProjectItem> listAutoFill(String key);
 

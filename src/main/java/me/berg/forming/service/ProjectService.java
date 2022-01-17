@@ -11,12 +11,21 @@ import java.util.List;
 public interface ProjectService extends IService<Project> {
 
     /**
+     * 根据key和用户ID获取
+     *
+     * @param key 项目Key
+     * @param userId 用户ID
+     * @return 项目
+     */
+    Project getByKey(String key, String userId);
+
+    /**
      * 根据key获取
      *
      * @param key 项目Key
      * @return 项目
      */
-    Project getByKey(String key, String userId);
+    Project getByKey(String key);
 
     /**
      * 获取用户项目列表

@@ -23,13 +23,13 @@ public class UserInfo implements Serializable {
     */
     @ApiModelProperty("用户信息条目ID")
     @TableId(value = "ui_id", type = IdType.AUTO)
-    private Long ui_id;
+    private Long uiId;
 
     /**
     * 用户ID
     */
     @ApiModelProperty("用户ID")
-    private String user_id;
+    private String userId;
 
     /**
     * 用户信息条目的值
@@ -44,7 +44,7 @@ public class UserInfo implements Serializable {
     private Integer type;
 
     public UserInfo(String user_id, String content, Integer type) {
-        this.user_id = user_id;
+        this.userId = user_id;
         this.content = content;
         this.type = type;
     }
