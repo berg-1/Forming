@@ -33,14 +33,14 @@ public class ProjectResultController {
     @ApiOperation("获得项目数据和自动填写数据")
     @GetMapping("/share/{projectKey}")
     public Result<ProjectLoadVO> loadProject(@PathVariable String projectKey, @AuthenticationPrincipal UserEntity user) {
-        Project project = projectService.getByKey(projectKey);
-        List<ProjectItem> items = projectItemService.listByKey(projectKey);
         List<UserInfo> infos = null;
         try {
             infos = userInfoService.getUserInfos(user.getUserId());
         } catch (NullPointerException e) {
             return Result.failed(ResultCode.USER_NOT_LOGIN, "请先登录!");
         }
+        Project project = projectService.getByKey(projectKey);
+        List<ProjectItem> items = projectItemService.listByKey(projectKey);
         return Result.success(new ProjectLoadVO(project, items, infos));
     }
 
