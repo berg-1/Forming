@@ -60,7 +60,7 @@ public class ProjectItem implements Serializable {
     private String regex;
 
     /**
-     * 是否为自动填写字段
+     * 自动填写字段 类型值
      */
     @TableField(value = "autofill")
     private Integer autofill;

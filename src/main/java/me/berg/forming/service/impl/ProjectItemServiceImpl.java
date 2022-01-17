@@ -2,12 +2,14 @@ package me.berg.forming.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import me.berg.forming.entity.Project;
 import me.berg.forming.entity.ProjectItem;
 import me.berg.forming.mapper.ProjectItemMapper;
 import me.berg.forming.service.ProjectItemService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 项目表单项(ProjectTemplateItem)表服务实现类
@@ -26,6 +28,14 @@ public class ProjectItemServiceImpl extends ServiceImpl<ProjectItemMapper, Proje
         return this.list(Wrappers.<ProjectItem>lambdaQuery()
                 .eq(ProjectItem::getProjectKey, key)
                 .ne(ProjectItem::getAutofill, 0));
+    }
+
+    @Override
+    public List<Integer> listAutoFillKeys(String key) {
+        List<ProjectItem> list = this.list(Wrappers.<ProjectItem>lambdaQuery()
+                .eq(ProjectItem::getProjectKey, key)
+                .ne(ProjectItem::getAutofill, 0));
+        return list.stream().map(ProjectItem::getAutofill).collect(Collectors.toList());
     }
 
     @Override
