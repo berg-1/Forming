@@ -3,8 +3,10 @@ package me.berg.forming.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import me.berg.forming.component.CustomPasswordEncoder;
+import me.berg.forming.entity.UserEntity;
 import me.berg.forming.util.Result;
 import me.berg.forming.util.ResultCode;
+import me.berg.forming.web.vo.UserVO;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -92,7 +94,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler((request, response, authentication) -> {
                     response.setContentType("application/json;charset=utf-8");
                     PrintWriter out = response.getWriter();
-                    out.write(objectMapper.writeValueAsString(Result.success(authentication, "登录成功")));
+                    UserVO user = new UserVO((UserEntity) authentication.getPrincipal());
+                    out.write(objectMapper.writeValueAsString(Result.success(user, "登录成功")));
                     out.flush();
                     out.close();
                 })
