@@ -1,20 +1,17 @@
 package me.berg.forming.web.vo;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import me.berg.forming.entity.Project;
 import me.berg.forming.entity.ProjectItem;
 import me.berg.forming.entity.UserInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 返回项目填写需要 VO
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class ProjectLoadVO {
 
     /**
@@ -30,5 +27,15 @@ public class ProjectLoadVO {
     /**
      * 用户信息 用于自动填写
      */
-    private List<UserInfo> userInfos;
+    private List<UserInfoVO> userInfos;
+
+    public ProjectLoadVO(Project project, List<ProjectItem> projectItems, List<UserInfo> infos) {
+        this.project = project;
+        this.projectItems = projectItems;
+        this.userInfos = new ArrayList<>();
+        for (UserInfo info : infos) {
+            this.userInfos.add(new UserInfoVO(info.getType(), info.getContent()));
+        }
+
+    }
 }

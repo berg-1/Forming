@@ -42,7 +42,6 @@ public class ProjectResultController {
                     .stream()
                     .filter(k -> autoFillKeys.contains(k.getType()))
                     .collect(Collectors.toList());
-            System.out.println(infos);
         } catch (NullPointerException e) {
             return Result.failed(ResultCode.USER_NOT_LOGIN, "请先登录!");
         }
