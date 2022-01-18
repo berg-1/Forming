@@ -64,7 +64,7 @@ public class ProjectResultController {
         List<ProjectItem> autoFill = projectItemService.listAutoFill(result.getProjectKey());
         JSON json = JSONUtil.parse(result.getData());
         // 解析json中item的值，存入user_info表
-        autoFill.forEach(item -> userInfoService.save(new UserInfo(user.getUserId(), json.getByPath(item.getPath()).toString(), item.getAutofill())));
+        autoFill.forEach(item -> userInfoService.saveOrUpdate(user.getUserId(), item.getAutofill(), json.getByPath(item.getPath()).toString()));
         if (resultService.saveProjectResult(result)) {
             return Result.success(null, "提交成功");
         }

@@ -1,12 +1,14 @@
 package me.berg.forming.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -29,18 +31,21 @@ public class UserInfo implements Serializable {
     * 用户ID
     */
     @ApiModelProperty("用户ID")
+    @TableField("user_id")
     private String userId;
 
     /**
     * 用户信息条目的值
     */
     @ApiModelProperty("用户信息条目的值")
+    @TableField("content")
     private String content;
 
     /**
     * 信息类型
     */
     @ApiModelProperty("信息类型")
+    @TableField("type")
     private Integer type;
 
     public UserInfo(String user_id, String content, Integer type) {

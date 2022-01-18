@@ -20,6 +20,12 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo>
     public List<UserInfo> getUserInfos(String userId) {
         return this.list(Wrappers.<UserInfo>lambdaQuery().eq(UserInfo::getUserId, userId));
     }
+
+    @Override
+    public void saveOrUpdate(String userId, Integer type, String content) {
+        this.saveOrUpdate(new UserInfo(userId, content, type),
+                Wrappers.<UserInfo>lambdaUpdate().eq(UserInfo::getUserId, userId).eq(UserInfo::getType, type));
+    }
 }
 
 
