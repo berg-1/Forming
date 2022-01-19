@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import sun.security.x509.SerialNumber;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
