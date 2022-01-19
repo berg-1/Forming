@@ -19,7 +19,8 @@ public interface UserInfoService extends IService<UserInfo> {
     List<UserInfo> getUserInfos(String userId);
 
     /**
-     * 不存在ProjectItem，否则更新
+     * 不存在ProjectItem，否则更新<br/>
+     * 异步方式执行，无返回值
      */
     void saveOrUpdate(String userId, Integer type, String content);
 

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import me.berg.forming.entity.UserInfo;
 import me.berg.forming.mapper.UserInfoMapper;
 import me.berg.forming.service.UserInfoService;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo>
     }
 
     @Override
+    @Async
     public void saveOrUpdate(String userId, Integer type, String content) {
         this.saveOrUpdate(new UserInfo(userId, content, type),
                 Wrappers.<UserInfo>lambdaUpdate().eq(UserInfo::getUserId, userId).eq(UserInfo::getType, type));
