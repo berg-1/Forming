@@ -18,11 +18,11 @@ public class RedisConfig {
 
     @Bean
     RedisClient redisClient() {
-        RedisURI uri = RedisURI.Builder.redis(this.host, this.port)
+        RedisURI client = RedisURI.Builder.redis(this.host, this.port)
                 .withDatabase(this.database)
                 .withPassword(password.toCharArray())
                 .build();
-        return RedisClient.create(uri);
+        return RedisClient.create(client);
     }
 
 }
