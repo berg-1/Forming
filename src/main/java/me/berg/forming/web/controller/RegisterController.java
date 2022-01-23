@@ -14,6 +14,7 @@ import me.berg.forming.web.request.RegistrationRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @Api(tags = "注册管理")
@@ -40,7 +41,7 @@ public class RegisterController {
             @ApiResponse(code = 2008, message = "用户已存在")
     })
     @PostMapping(path = "/register")
-    public Result<Object> userRegistration(RegistrationRequest form) {
+    public Result<Object> userRegistration(@RequestBody RegistrationRequest form) {
         UserEntity userEntity = form.toUser(passwordEncoder);
         log.info("Register ID: " + userEntity.getUserId());
         log.info("Register PW: " + userEntity.getPassword());
