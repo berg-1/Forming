@@ -3,14 +3,14 @@ package me.berg.forming.web.controller;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.berg.forming.web.request.RegistrationRequest;
 import me.berg.forming.entity.UserAuthority;
 import me.berg.forming.entity.UserEntity;
 import me.berg.forming.exception.UsernameAlreadyExistsException;
 import me.berg.forming.service.UserAuthorityService;
 import me.berg.forming.service.UserService;
-import me.berg.forming.util.ResultCode;
 import me.berg.forming.util.Result;
+import me.berg.forming.util.ResultCode;
+import me.berg.forming.web.request.RegistrationRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,8 +50,8 @@ public class RegisterController {
             if (id != null) {
                 throw new UsernameAlreadyExistsException("用户已存在");
             }
-            authorityService.save(new UserAuthority(null, userEntity.getUserId(), "ROLE_USER"));
             userService.save(form.toUser(passwordEncoder));
+            authorityService.save(new UserAuthority(null, userEntity.getUserId(), "ROLE_USER"));
             return Result.success(null, "注册成功!");
         } catch (UsernameAlreadyExistsException e) {
             return Result.failed(ResultCode.USER_ACCOUNT_ALREADY_EXIST, "用户已存在");
